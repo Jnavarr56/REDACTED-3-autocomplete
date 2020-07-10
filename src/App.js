@@ -7,7 +7,7 @@ import Loader from "react-spinners/RingLoader";
 import axios from "axios";
 import "./App.css";
 
-const DEBOUNCE_MS = 250;
+const DEBOUNCE_MS = 100;
 const API_URL = "https://www.teepublic.com";
 
 axios.defaults.method = "get";
