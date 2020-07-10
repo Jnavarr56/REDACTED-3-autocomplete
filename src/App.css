@@ -1,0 +1,86 @@
+.App {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #00caff;
+  background-color: #111;
+  color: #00caff;
+  font-size: 1.5em;
+  font-weight: 200;
+  letter-spacing: .5px;
+  outline: 0;
+  padding: 15px 20px;
+  max-width: 450px;
+  min-width: 300px;
+  width: 60vw;
+  transition: background .2s ease-in-out, color .2s ease-in-out, top .5s ease-in-out, left .5s ease-in-out, transform .3s ease-in-out;
+  animation: FadeIn .5s ease forwards;
+  opacity: 0;
+  filter: blur(5px);
+}
+input:focus, input:hover {
+  background: #00caff;
+  color: Black;
+}
+
+input:not([value=""]) {
+  top: 20px;
+  left: 30px;
+  background: #00caff;
+  color: Black;
+  transform: translate(0);
+
+}
+
+.suggestions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1 {
+  font-weight: 100;
+  font-size: 42px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: FadeIn .5s ease forwards;
+  opacity: 0;
+  filter: blur(5px);
+} 
+
+@keyframes FadeIn {
+ 100% {
+    opacity: 1;
+    filter: blur(0px);
+ }
+}
+
+.cool-button {
+  /* background: #00caff; */
+  border: #00caff 2px solid;
+  color: #00caff;
+  background: transparent;
+  cursor: pointer;
+  padding: 16px 0;
+  width: 300px;
+  border-radius: 2px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background .25s ease-in-out;
+  outline: none;
+}
+
+
+.cool-button:hover {
+  background: #00caff;
+  color: black;
+}
