@@ -20,27 +20,24 @@ const App = () => {
   const [fetching, setFetching] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
+  const debouncedQuery = useDebounce(query, DEBOUNCE_MS);
+
   useEffect(() => {
     if (!touched) return;
-    clearTimeout(window.scheduledRequest);
-
-    if (query === "") {
-      setSuggestions([]);
-      setFetching(false);
-    } else {
+    if (debouncedQuery) {
       setFetching(true);
       const params = { limit: 6, prefix: query };
-      window.scheduledRequest = setTimeout(() => {
-        axios({ url: "/search/autocomplete", params })
-          .then(({ data }) => {
-            setSuggestions(data.suggestions);
-            setFetching(false);
-          })
-          .catch((error) => alert(error.toString()));
-      }, DEBOUNCE_MS);
+      axios({ url: "/search/autocomplete", params })
+        .then(({ data }) => {
+          setSuggestions(data.suggestions);
+          setFetching(false);
+        })
+        .catch((error) => alert(error.toString()));
+    } else {
+      setSuggestions([]);
     }
     // eslint-disable-next-line
-  }, [query]);
+  }, [debouncedQuery]);
 
   const renderedSuggestions = (
     <div className={"suggestions"}>
@@ -75,7 +72,9 @@ const App = () => {
   );
 };
 
-const Suggestions = ({ suggestions }) => {
+const Suggestions = ({
+  suggestions = Array.fill({ suggestion: "", type: "" }),
+}) => {
   const [clicked, setClicked] = useState(null);
   const trailAnimationProps = useTrail(suggestions.length, {
     from: { opacity: 0, transform: "translateY(100%)", filter: "blur(5px)" },
@@ -115,6 +114,20 @@ const Suggestions = ({ suggestions }) => {
       ))}
     </ul>
   );
+};
+
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
 };
 
 export default App;
