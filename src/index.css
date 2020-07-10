@@ -6,6 +6,17 @@
   list-style: none;
 }
 
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #00caff;
+  border-radius: 4px;
+  border: solid 1px black;
+  width: 10px;
+}
+
 #root {
   height: 100%;
   width: 100%;

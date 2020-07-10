@@ -7,7 +7,7 @@ import Loader from "react-spinners/RingLoader";
 import axios from "axios";
 import "./App.css";
 
-const DEBOUNCE_MS = 100;
+const DEBOUNCE_MS = 250;
 const API_URL = "https://www.teepublic.com";
 
 axios.defaults.method = "get";
@@ -24,7 +24,7 @@ const App = () => {
     if (!touched) return;
     clearTimeout(window.scheduledRequest);
 
-    if (query.length === "") {
+    if (query === "") {
       setSuggestions([]);
       setFetching(false);
     } else {
@@ -60,7 +60,7 @@ const App = () => {
 
   return (
     <div className="App">
-      {query.length === 0 && <h1>TeePublic AutoComplete</h1>}
+      {query === "" && <h1>TeePublic AutoComplete</h1>}
       <input
         value={query}
         onChange={(e) => {
